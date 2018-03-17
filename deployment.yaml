@@ -1,0 +1,23 @@
+apiVersion: extensions/v1beta1
+kind: Deployment
+metadata:
+  name: spring-cloud-config
+  labels:
+    app: spring-cloud
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: spring-cloud
+  template:
+    metadata:
+      labels:
+        app: spring-cloud
+        version: "1.0.0"
+    spec:
+      containers:
+      - name: msa-config
+        image: hubtea/spring-cloud-config:1.0.1
+        ports:
+        - name: http
+          containerPort: 8888
