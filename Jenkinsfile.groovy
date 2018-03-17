@@ -9,11 +9,11 @@ node {
     }
 
     stage('Test') {
-        sh './gradlew test || true'
+        sh 'gradle test || true'
     }
 
     stage('Build') {
-        sh './gradlew build -x test'
+        sh 'gradle build -x test'
 
     }
 
