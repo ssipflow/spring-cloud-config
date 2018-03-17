@@ -29,7 +29,8 @@ ext {
 	springCloudVersion = 'Finchley.M8'
 }
 
-jar {
+
+bootJar {
 	baseName = 'spring-cloud-config'
 	version =  '1.0.0'
 }
