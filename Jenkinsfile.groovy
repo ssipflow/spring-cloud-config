@@ -3,29 +3,27 @@ node {
     def git
     def commitHash
 
-    ansiColor("xterm") {
+    stage('Checkout') {
+        git = checkout scm
+        commitHash = git.GIT_COMMIT
+    }
 
-        stage('Checkout') {
-            git = checkout scm
-            commitHash = git.GIT_COMMIT
+    stage('Test') {
+        sh './gradlew test || true'
+    }
+
+    stage('Build') {
+        try {
+            sh './gradlew build -x test'
+        } catch(e) {
+            mail subject: "Jenkins Job '${env.JOB_NAME}' (${env.BUILD_NUMBER}) failed with ${e.message}",
+                    to: 'codingman@outlook.kr',
+                    body: "Please go to $env.BUILD_URL."
         }
+    }
 
-        stage('Test') {
-            sh './gradlew test || true'
-        }
-
-        stage('Build') {
-            try {
-                sh './gradlew build -x test'
-            } catch(e) {
-                mail subject: "Jenkins Job '${env.JOB_NAME}' (${env.BUILD_NUMBER}) failed with ${e.message}",
-                        to: 'codingman@outlook.kr',
-                        body: "Please go to $env.BUILD_URL."
-            }
-        }
-
-        stage('Build Docker Image') {
-            def image = docker.build("spring-cloud-config", "./")
+    stage('Build Docker Image') {
+        def image = docker.build("spring-cloud-config", "./")
         }
 
 //        stage('Archive') {
@@ -41,7 +39,7 @@ node {
 //
 //            )
 //        }
-    }
+
 
 
 }
