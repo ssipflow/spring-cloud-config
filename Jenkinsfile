@@ -2,6 +2,7 @@
 node {
     def git
     def commitHash
+    def image
 
     stage('Checkout') {
         git = checkout scm
@@ -18,7 +19,7 @@ node {
     }
 
     stage('Build Docker Image') {
-        def image = docker.build("hubtea/spring-cloud-config", "./")
+        image = docker.build("hubtea/spring-cloud-config")
     }
 
     stage('Archive') {
