@@ -19,10 +19,8 @@ node {
     }
 
     stage('Build Docker Image') {
-        agent {
-            dockerfile true
-        }
-        buildImage = docker.build("hubtea/spring-cloud-config")
+        agent { dockerfile true }
+        buildImage = docker.build("hubtea/spring-cloud-config:${commitHash}")
     }
 
     stage('Archive') {
@@ -33,7 +31,6 @@ node {
 
             "Docker Image Push" : {
                 docker.withRegistry('https://registry.hub.docker.com', 'docker-hub') {
-                    buildImage.push("${commitHash}")
                     buildImage.push("latest")
                 }
             }
