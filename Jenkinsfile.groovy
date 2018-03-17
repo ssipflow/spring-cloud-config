@@ -1,8 +1,16 @@
 #!groovy
 node {
 
+    def app
+    def git
+
+    def commitHash
+
     stage('Checkout') {
-        checkout scm
+        git = checkout scm
+        commitHash = git.GIT_COMMIT
+
+        println(git)
     }
 
     stage('Test') {
@@ -19,14 +27,21 @@ node {
         }
     }
 
+    stage('Build Docker Image') {
+        app = docker.build("getintodevops/hellonode")
+    }
+
     stage('Archive') {
         parallel (
+
             "Archive Artifacts" : {
                 archiveArtifacts artifacts: '**/build/libs/*.jar', fingerprint: true
             },
+
             "Docker Image Push" : {
                 sh './gradlew dockerPush'
             }
+
         )
     }
 
