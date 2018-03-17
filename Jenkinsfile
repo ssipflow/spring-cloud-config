@@ -18,7 +18,7 @@ node {
     }
 
     stage('Build Docker Image') {
-        def image = docker.build("hubtea/spring-cloud-config:${commitHash}", "./")
+        def image = docker.build("hubtea/spring-cloud-config", "./")
     }
 
     stage('Archive') {
