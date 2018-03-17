@@ -9,9 +9,9 @@ node {
         commitHash = git.GIT_COMMIT
     }
 
-    stage('Test') {
-        sh './gradlew test || true'
-    }
+//    stage('Test') {
+//        sh './gradlew test || true'
+//    }
 
     stage('Build') {
         sh './gradlew build -x test'
@@ -20,9 +20,7 @@ node {
 
     stage('Build Docker Image') {
         agent {
-            dockerfile {
-                filename 'Dockerfile'
-            }
+            dockerfile true
         }
         buildImage = docker.build("hubtea/spring-cloud-config")
     }
