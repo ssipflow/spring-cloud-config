@@ -19,7 +19,7 @@ node {
     }
 
     stage('Build Docker Image') {
-        agent { dockerfile true }
+        agent none
         buildImage = docker.build("hubtea/spring-cloud-config:${commitHash}")
     }
 
