@@ -2,7 +2,7 @@
 node {
     def git
     def commitHash
-    def image
+    def buildImage
 
     stage('Checkout') {
         git = checkout scm
@@ -19,7 +19,7 @@ node {
     }
 
     stage('Build Docker Image') {
-        image = docker.build("hubtea/spring-cloud-config")
+        buildImage = docker.build("hubtea/spring-cloud-config")
     }
 
     stage('Archive') {
@@ -30,8 +30,8 @@ node {
 
             "Docker Image Push" : {
                 docker.withRegistry('https://registry.hub.docker.com', 'docker-hub') {
-                    app.push("${commitHash}")
-                    app.push("latest")
+                    buildImage.push("${commitHash}")
+                    buildImage.push("latest")
                 }
             }
         )
