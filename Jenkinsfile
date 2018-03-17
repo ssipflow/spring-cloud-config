@@ -21,20 +21,18 @@ node {
         def image = docker.build("hubtea/spring-cloud-config:${commitHash}", "./")
     }
 
-//        stage('Archive') {
-//            parallel (
-//
-//                    "Archive Artifacts" : {
-//                        archiveArtifacts artifacts: '**/build/libs/*.jar', fingerprint: true
-//                    },
-//
-//                    "Docker Image Push" : {
-//                        sh './gradlew dockerPush'
-//                    }
-//
-//            )
-//        }
+    stage('Archive') {
+        parallel (
+            "Archive Artifacts" : {
+                archiveArtifacts artifacts: '**/build/libs/*.jar', fingerprint: true
+            },
 
-
-
+            "Docker Image Push" : {
+                docker.withRegistry('https://registry.hub.docker.com', 'docker-hub') {
+                    app.push("${commitHash}")
+                    app.push("latest")
+                }
+            }
+        )
+    }
 }
