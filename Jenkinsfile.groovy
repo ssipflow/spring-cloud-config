@@ -13,13 +13,8 @@ node {
     }
 
     stage('Build') {
-        try {
-            sh './gradlew build -x test'
-        } catch(e) {
-            mail subject: "Jenkins Job '${env.JOB_NAME}' (${env.BUILD_NUMBER}) failed with ${e.message}",
-                    to: 'codingman@outlook.kr',
-                    body: "Please go to $env.BUILD_URL."
-        }
+        sh './gradlew build -x test'
+
     }
 
     stage('Build Docker Image') {
