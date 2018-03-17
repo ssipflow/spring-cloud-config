@@ -31,8 +31,7 @@ ext {
 
 
 bootJar {
-	baseName = 'spring-cloud-config'
-	version =  '1.0.0'
+	baseName = 'app'
 }
 
 dependencies {
