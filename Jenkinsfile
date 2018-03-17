@@ -1,3 +1,4 @@
+#!groovy
 node {
 
     stage('Checkout') {
@@ -29,7 +30,4 @@ node {
         )
     }
 
-    stage('Deploy') {
-        sh 'kubectl apply --namespace=development -f deployment.yaml'
-    }
 }
