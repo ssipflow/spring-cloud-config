@@ -33,7 +33,7 @@ node {
             },
 
             "Docker Image Push" : {
-                docker.withRegistry('', 'docker-hub') {
+                docker.withRegistry([credentialsId: 'docker-hub') {
                     buildImage.push("latest")
                 }
             }
