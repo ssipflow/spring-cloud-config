@@ -1,3 +1,17 @@
+apiVersion: extensions/v1beta1
+kind: Ingress
+metadata:
+  name: config
+spec:
+  rules:
+  - host: config.k8s.com
+    http:
+      paths:
+      - path: /
+        backend:
+          serviceName: config
+          servicePort: 8888
+---
 kind: Service
 apiVersion: v1
 metadata:
@@ -16,18 +30,20 @@ kind: Deployment
 metadata:
   name: spring-cloud-config
   labels:
-    app: spring-cloud
+    app: spring-cloud-config
 spec:
   replicas: 1
   selector:
     matchLabels:
-      app: spring-cloud
+      app: spring-cloud-config
   template:
     metadata:
       labels:
-        app: spring-cloud
+        app: spring-cloud-config
         version: latest
     spec:
+      hostname: config
+      subdomain: config
       containers:
       - name: spring-cloud-config
         image: hubtea/spring-cloud-config:latest
