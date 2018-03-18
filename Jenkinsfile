@@ -33,6 +33,7 @@ node {
             },
 
             "Docker Image Push" : {
+                buildImage.push("${commitHash}")
                 buildImage.push("latest")
             }
         )
