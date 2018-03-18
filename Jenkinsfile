@@ -13,7 +13,7 @@ node {
         try{
             sh './gradlew check'
         } finally {
-            junit 'build/reports/**/*.xml'
+            junit 'build/test-results/**/*.xml'
         }
     }
 
