@@ -13,11 +13,11 @@ spec:
     metadata:
       labels:
         app: spring-cloud
-        version: "1.0.0"
+        version: latest
     spec:
       containers:
-      - name: msa-config
-        image: hubtea/spring-cloud-config:1.0.0
+      - name: spring-cloud-config
+        image: hubtea/spring-cloud-config:latest
         ports:
         - name: http
           containerPort: 8888

@@ -38,4 +38,8 @@ node {
             }
         )
     }
+
+    stage('Kubernetes Deploy') {
+        sh 'kubectl apply --namespace=development -f deployment.yaml'
+    }
 }
