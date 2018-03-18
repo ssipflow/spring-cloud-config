@@ -12,7 +12,7 @@ node {
     stage('Test') {
         try{
             sh './gradlew check'
-        finally {
+        } finally {
             junit 'build/reports/**/*.xml'
         }
     }
