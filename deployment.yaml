@@ -46,7 +46,7 @@ spec:
       subdomain: config
       containers:
       - name: spring-cloud-config
-        image: hubtea/spring-cloud-config:latest
+        image: ssipflow/spring-cloud-config:latest
         ports:
         - name: http
           containerPort: 8888

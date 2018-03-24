@@ -23,7 +23,7 @@ node {
     }
 
     stage('Build Docker Image') {
-        buildImage = docker.build("hubtea/spring-cloud-config:${commitHash}")
+        buildImage = docker.build("ssipflow/spring-cloud-config:${commitHash}")
     }
 
     stage('Archive') {
