@@ -40,6 +40,6 @@ node {
     }
 
     stage('Kubernetes Deploy') {
-        sh 'kubectl apply --namespace=default -f deployment.yaml'
+        sh 'kubectl apply --namespace=deployment -f deployment.yaml'
     }
 }
